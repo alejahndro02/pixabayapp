@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ImagenService } from 'src/app/services/imagen.service';
 
 @Component({
   selector: 'app-error',
@@ -6,10 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./error.component.css']
 })
 export class ErrorComponent implements OnInit {
-
-  constructor() { }
+  texto='';
+  mostrar=false;
+  suscripcion : Subscription;
+  constructor(private _imagenService:ImagenService) {
+    this.suscripcion = this._imagenService.getError().subscribe(data=>{
+      console.log(data)
+      this.mostrarMsj();
+      this.texto =data;
+    })
+   }
 
   ngOnInit(): void {
   }
-
+  ngOnDestroy(): void {
+    this.suscripcion.unsubscribe();
+  }
+  mostrarMsj(){
+    this.mostrar=true;
+    setTimeout(() => {
+      this.mostrar=false
+    }, 2000);
+  }
 }
