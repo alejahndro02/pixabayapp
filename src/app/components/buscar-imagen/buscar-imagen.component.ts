@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ImagenService } from 'src/app/services/imagen.service';
 
 @Component({
   selector: 'app-buscar-imagen',
@@ -7,14 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuscarImagenComponent implements OnInit {
 nombreImg:string;
-  constructor() {
+  constructor(private _imagenService: ImagenService) {
     this.nombreImg='';
    }
 
   ngOnInit(): void {
   }
   buscarImagenes(){
-    console.log(this.nombreImg);
-    
+    if(this.nombreImg===''){
+      this._imagenService.setError('Agrega una palabra para iniciar la busqueda');
+    }
   }
 }
