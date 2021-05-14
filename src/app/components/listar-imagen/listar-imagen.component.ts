@@ -14,7 +14,6 @@ export class ListarImagenComponent implements OnInit {
     this.suscription= this._imagenService.getTerminoBusqueda().subscribe(data =>{
       this.termino = data;
       this.obtenetImg();
-      
     })
   }
 
@@ -22,8 +21,12 @@ export class ListarImagenComponent implements OnInit {
   }
   obtenetImg(){
     this._imagenService.getImagenes(this.termino).subscribe(data =>{
-      console.log(data);
-      
+      if(data.hits.length===0){
+        this._imagenService.setError('No encontramos ningun resultado... ¡Vuelva a intentarlo!')
+        return;
+      }
+    }, error=>{
+      this._imagenService.setError('Opss.. Ocurrio un error')
     })
   }
 }
