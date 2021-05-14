@@ -17,6 +17,8 @@ nombreImg:string;
   buscarImagenes(){
     if(this.nombreImg===''){
       this._imagenService.setError('Agrega una palabra para iniciar la busqueda');
+      return;
     }
+    this._imagenService.enviarTerminoBusqueda(this.nombreImg);
   }
 }
