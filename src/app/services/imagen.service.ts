@@ -5,13 +5,13 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ImagenService {
-private $error= new Subject<string>();
+private error$= new Subject<string>();
   constructor() { }
   setError(mensaje: string){
-    this.$error.next(mensaje)
+    this.error$.next(mensaje)
   }
   getError():Observable<string>{
-    return this.$error.asObservable()
+    return this.error$.asObservable()
   }
 
 }
