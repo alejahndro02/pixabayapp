@@ -23,7 +23,7 @@ private terminoBusqueda$ = new Subject<string>()
   }
   getImagenes(termino: string): Observable<any>{
     const PIXABAYKEAPI='10058662-9c6798d02f5ca0bafd552ba6c';
-    const URL ='https://pixabay.com/api/?key=+'+ PIXABAYKEAPI +'&q='+ termino;
+    const URL ='https://pixabay.com/api/?key='+PIXABAYKEAPI+'&q='+termino;
     return this.http.get(URL);
   }
 
