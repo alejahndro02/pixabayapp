@@ -18,6 +18,7 @@ export class ListarImagenComponent implements OnInit {
   constructor(private _imagenService:ImagenService) {
     this.suscription= this._imagenService.getTerminoBusqueda().subscribe(data =>{
       this.termino = data;
+      this.paginaActual =1;
       this.loading =true;
       this.obtenetImg();
     })
@@ -26,9 +27,8 @@ export class ListarImagenComponent implements OnInit {
   ngOnInit(): void {
   }
   obtenetImg(){
-    this._imagenService.getImagenes(this.termino).subscribe(data =>{
+    this._imagenService.getImagenes(this.termino,this.totalImgPagina, this.paginaActual).subscribe(data =>{
       this.loading=false;
-      this.paginaActual =1;
       if(data.hits.length===0){
         this._imagenService.setError('No encontramos ningun resultado... ¡Vuelva a intentarlo!')
         return;
@@ -42,9 +42,15 @@ export class ListarImagenComponent implements OnInit {
   }
   paginaAnterior(){
     this.paginaActual--;
+    this.loading=true;
+    this.listaImagenes=[];
+    this.obtenetImg();
   }
   paginaSiguiente(){
     this.paginaActual++;
+    this.loading=true;
+    this.listaImagenes=[];
+    this.obtenetImg();
   }
   paginaAnteriorClass(){
     if(this.paginaActual===1){
