@@ -15,7 +15,7 @@ export class ListarImagenComponent implements OnInit {
   totalImgPagina= 30;
   paginaActual=1;
   calcularTotalPaginas=0;
-  constructor(private _imagenService:ImagenService) { 
+  constructor(private _imagenService:ImagenService) {
     this.suscription= this._imagenService.getTerminoBusqueda().subscribe(data =>{
       this.termino = data;
       this.loading =true;
@@ -28,6 +28,7 @@ export class ListarImagenComponent implements OnInit {
   obtenetImg(){
     this._imagenService.getImagenes(this.termino).subscribe(data =>{
       this.loading=false;
+      this.paginaActual =1;
       if(data.hits.length===0){
         this._imagenService.setError('No encontramos ningun resultado... ¡Vuelva a intentarlo!')
         return;
@@ -44,5 +45,19 @@ export class ListarImagenComponent implements OnInit {
   }
   paginaSiguiente(){
     this.paginaActual++;
+  }
+  paginaAnteriorClass(){
+    if(this.paginaActual===1){
+      return false;
+    }else{
+      return true;
+    }
+  }
+  paginaSiguienteClass(){
+    if(this.paginaActual===this.calcularTotalPaginas){
+      return false;
+    }else{
+      return true;
+    }
   }
 }
