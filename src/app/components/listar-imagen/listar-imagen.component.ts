@@ -12,6 +12,9 @@ export class ListarImagenComponent implements OnInit {
   suscription: Subscription;
   listaImagenes :any [] = [];
   loading = false;
+  totalImgPagina= 30;
+  paginaActual=1;
+  calcularTotalPaginas=0;
   constructor(private _imagenService:ImagenService) { 
     this.suscription= this._imagenService.getTerminoBusqueda().subscribe(data =>{
       this.termino = data;
@@ -29,10 +32,17 @@ export class ListarImagenComponent implements OnInit {
         this._imagenService.setError('No encontramos ningun resultado... ¡Vuelva a intentarlo!')
         return;
       }
+      this.calcularTotalPaginas = Math.ceil(data.totalHits/this.totalImgPagina);
       this.listaImagenes =data.hits;
     }, error=>{
       this._imagenService.setError('Opss.. Ocurrio un error')
       this.loading = false;
     })
+  }
+  paginaAnterior(){
+    this.paginaActual--;
+  }
+  paginaSiguiente(){
+    this.paginaActual++;
   }
 }
