@@ -23,10 +23,10 @@
 </div>
 <div *ngIf="listaImagenes.length > 0" class="d-flex justify-content-center mt-2">
     <ul class="pagination pagination-lg">
-        <li class="page-item">
+        <li class="page-item" *ngIf="paginaAnteriorClass()">
             <a class="page-link" (click)="paginaAnterior()">&laquo;Anterior</a>
         </li>
-        <li class="page-item">
+        <li class="page-item" *ngIf="paginaSiguienteClass()">
             <a class="page-link" (click)="paginaSiguiente()">Siguiente&raquo;</a>
         </li>
     </ul>
